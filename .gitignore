@@ -1,5 +1,4 @@
 .mypy_cache/
-*.cdf
 *.tmp
 .pytest_cache/
 *.tar
