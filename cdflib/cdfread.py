@@ -66,7 +66,7 @@ class CDF:
 
     def __init__(self, path, validate=False, string_encoding='ascii'):
 
-        path = Path(path).expanduser()
+        path = Path(path).resolve().expanduser()
         if not path.is_file():
             path = path.with_suffix('.cdf')
             if not path.is_file():
@@ -2252,7 +2252,7 @@ class CDF:
         section_type = int.from_bytes(block[0:4], 'big')
         if section_type == 13:
             # a CVVR
-            compressed_size = int.from_bytes(block[12:16], 'big')
+            compressed_size = int.from_bytes(block[8:16], 'big')
             return gzip.decompress(block[16:16+compressed_size])
         elif section_type == 7:
             # a VVR
