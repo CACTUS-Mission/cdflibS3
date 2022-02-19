@@ -1,15 +1,14 @@
 import pathlib
-
+import os
+import urllib.request
 import cdflib
 
 
 def test_read():
-    fname = (pathlib.Path(__file__) / '..' / 'testfiles' /
-             'psp_fld_l2_mag_rtn_1min_20200104_v02.cdf')
-    cdf = cdflib.CDF(fname)
-    info = cdf.cdf_info()
-
-    assert isinstance(info, dict)
-
-    varatts = cdf.varattsget('psp_fld_l2_mag_RTN_1min')
-    assert isinstance(varatts, dict)
+    fname = 'helios.cdf'
+    url = ("http://helios-data.ssl.berkeley.edu/data/"
+           "E1_experiment/New_proton_corefit_data_2017/"
+           "cdf/helios1/1974/h1_1974_346_corefit.cdf")
+    if not os.path.exists(fname):
+        urllib.request.urlretrieve(url, fname)
+    cdflib.CDF(fname)
